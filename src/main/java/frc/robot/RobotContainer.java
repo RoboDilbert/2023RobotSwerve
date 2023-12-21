@@ -25,14 +25,16 @@ public class RobotContainer {
 
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
-    private final PS4Controller ps4_controller = new PS4Controller(0);
+    public final static PS4Controller ps4_controller = new PS4Controller(0);
+
+    public double brakeMultiplier;
 
     //private final CommandJoystick driverController = new CommandJoystick(0);
 
 
 //     private double x_value = driverController.getX();
 //     private double y_value = driverController.getY();
-//     private double turn_value = driverController.getRawAxis(2);
+//     private double turn_value = driverController.getRSawAxis(2);
 //     private boolean field_oriented = true;
         
         
@@ -40,12 +42,20 @@ public class RobotContainer {
         
         public RobotContainer() {
                 swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(swerveSubsystem,
-                        () -> ps4_controller.getLeftX(),
+                        () -> -ps4_controller.getLeftX(),
                         () -> -ps4_controller.getLeftY(),
-                        () -> ps4_controller.getRawAxis(4),
+                        () -> -ps4_controller.getRawAxis(4),
                         () -> true));
 
+
+
+                        
+
                 configureButtonBindings();
+
+                brakeMultiplier = 1-RobotContainer.ps4_controller.getRawAxis(3);
+
+
         }
         
         
@@ -69,6 +79,9 @@ public class RobotContainer {
         
         
         //button(5).onTrue((new InstantCommand(swerveSubsystem::zeroHeading)));
+        if(ps4_controller.getL1Button()){
+                swerveSubsystem.zeroHeading();
+        }
     }
     
 
@@ -83,11 +96,20 @@ public class RobotContainer {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
-                        new Translation2d(1, 0),
-                        new Translation2d(1, -1)),
+                        new Translation2d(0.5, 0),
+                        new Translation2d(0.5, -0.5)),
                 new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
                 trajectoryConfig);
 
+        /*
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0, 0, new Rotation2d(0)),
+                List.of(
+                        new Translation2d(0.5, 0),
+                        new Translation2d(0.5, -0.5)),
+                new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+                trajectoryConfig);
+        */
         // 3. Define PID controllers for tracking trajectory
         PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
         PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);

@@ -40,10 +40,10 @@ public final class Constants {
         public static final int kFrontRightTurningMotorPort = 1;
         public static final int kBackRightTurningMotorPort = 5;
 
-        public static final boolean kFrontLeftTurningEncoderReversed = true;
-        public static final boolean kBackLeftTurningEncoderReversed = true;
-        public static final boolean kFrontRightTurningEncoderReversed = true;
-        public static final boolean kBackRightTurningEncoderReversed = true;
+        public static final boolean kFrontLeftTurningEncoderReversed = false;
+        public static final boolean kBackLeftTurningEncoderReversed = false;
+        public static final boolean kFrontRightTurningEncoderReversed = false;
+        public static final boolean kBackRightTurningEncoderReversed = false;
 
         public static final boolean kFrontLeftDriveEncoderReversed = false;
         public static final boolean kBackLeftDriveEncoderReversed = false;
@@ -54,26 +54,27 @@ public final class Constants {
         public static final int kBackLeftDriveAbsoluteEncoderPort = 12;
         public static final int kFrontRightDriveAbsoluteEncoderPort = 10;
         public static final int kBackRightDriveAbsoluteEncoderPort = 11;
-
         //public static final int kGyroPort = 13;
 
-        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
-        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
-        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
-        public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
+        public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = true;
+        public static final boolean kBackLeftDriveAbsoluteEncoderReversed = true;
+        public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
+        public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
 
 
         public static final double kDriveMasterOffsetRad = Math.toRadians(60);
         
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(302);
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(312);
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(227);
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(200);
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(122+108); //122
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(132+108); //132
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(47+108); //47
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(20+108); //20
 
         
 
-        public static final double kPhysicalMaxSpeedMetersPerSecond = 4.5;
-        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+        
+        
+        public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
+        public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 1 * Math.PI;
 
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
@@ -85,8 +86,8 @@ public final class Constants {
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
-                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
         public static final double kPXController = 1.5;
         public static final double kPYController = 1.5;

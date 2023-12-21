@@ -5,11 +5,9 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.SwerveModule;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class SwerveJoystickCmd extends CommandBase {
@@ -51,17 +49,17 @@ public class SwerveJoystickCmd extends CommandBase {
 
         // 3. Make the driving smoother
 
-        String message_x = " " + xSpeed;
-        String message_y = " " + ySpeed;
-        String message_t = " " + turningSpeed;
+        //String message_x = " " + xSpeed;
+        //String message_y = " " + ySpeed;
+        //String message_t = " " + turningSpeed;
 
         //DriverStation.reportWarning(message_y, false);
         //DriverStation.reportWarning(message_t, false);
 
 
 
-        xSpeed = xLimiter.calculate(xSpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
-        ySpeed = yLimiter.calculate(ySpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+        xSpeed = Math.abs(xSpeed)*xSpeed;
+        ySpeed = Math.abs(ySpeed)*ySpeed;
         turningSpeed = turningLimiter.calculate(turningSpeed)* DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
 
         // 4. Construct desired chassis speeds

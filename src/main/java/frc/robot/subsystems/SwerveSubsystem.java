@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -111,14 +112,9 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-        
-        //desiredStates[0].speedMetersPerSecond = 0;
-        //desiredStates[1].speedMetersPerSecond = 0;
-        //desiredStates[2].speedMetersPerSecond = 0;
-        //desiredStates[3].speedMetersPerSecond = 0;
 
-        
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+
         double x = frontLeft.getAbsoluteEncoderDeg();
         String message1 = "frontLeft - " + x;
         DriverStation.reportWarning(message1, false);
