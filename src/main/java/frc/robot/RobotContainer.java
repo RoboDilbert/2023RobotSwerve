@@ -9,13 +9,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.SwerveJoystickCmd;
@@ -26,10 +24,7 @@ public class RobotContainer {
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
     public final static PS4Controller ps4_controller = new PS4Controller(0);
-
-    public double brakeMultiplier;
-
-    //private final CommandJoystick driverController = new CommandJoystick(0);
+    // final CommandJoystick driverController = new CommandJoystick(0);
 
 
 //     private double x_value = driverController.getX();
@@ -39,23 +34,14 @@ public class RobotContainer {
         
         
        
-        
+
         public RobotContainer() {
                 swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(swerveSubsystem,
                         () -> -ps4_controller.getLeftX(),
                         () -> -ps4_controller.getLeftY(),
                         () -> -ps4_controller.getRawAxis(4),
                         () -> true));
-
-
-
-                        
-
                 configureButtonBindings();
-
-                brakeMultiplier = 1-RobotContainer.ps4_controller.getRawAxis(3);
-
-
         }
         
         
@@ -96,9 +82,10 @@ public class RobotContainer {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
-                        new Translation2d(0.5, 0),
-                        new Translation2d(0.5, -0.5)),
-                new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+                        new Translation2d(0.1, 0)
+                        //, new Translation2d(0.1, 0.1)
+                        ),
+                new Pose2d(0.2, 0, Rotation2d.fromDegrees(0)),
                 trajectoryConfig);
 
         /*

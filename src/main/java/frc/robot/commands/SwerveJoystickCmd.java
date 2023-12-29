@@ -18,8 +18,8 @@ public class SwerveJoystickCmd extends CommandBase {
     private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
 
     public SwerveJoystickCmd(SwerveSubsystem swerveSubsystem,
-            Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, Supplier<Double> turningSpdFunction,
-            Supplier<Boolean> fieldOrientedFunction) {
+            Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction, 
+            Supplier<Double> turningSpdFunction, Supplier<Boolean> fieldOrientedFunction) {
         this.swerveSubsystem = swerveSubsystem;
         this.xSpdFunction = xSpdFunction;
         this.ySpdFunction = ySpdFunction;
@@ -41,26 +41,32 @@ public class SwerveJoystickCmd extends CommandBase {
         double xSpeed = xSpdFunction.get();
         double ySpeed = ySpdFunction.get();
         double turningSpeed = turningSpdFunction.get();
-
+        
         // 2. Apply deadband
         xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
         ySpeed = Math.abs(ySpeed) > OIConstants.kDeadband ? ySpeed : 0.0;
         turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
 
         // 3. Make the driving smoother
-
+        
+        
+        //OUTPUT ERROR MESSAGES --> 
         //String message_x = " " + xSpeed;
         //String message_y = " " + ySpeed;
         //String message_t = " " + turningSpeed;
-
         //DriverStation.reportWarning(message_y, false);
         //DriverStation.reportWarning(message_t, false);
 
 
-
-        xSpeed = Math.abs(xSpeed)*xSpeed;
-        ySpeed = Math.abs(ySpeed)*ySpeed;
+        //Applying Smoothing Curve (f(x) = x^2)
+        //xSpeed = Math.abs(xSpeed)*xSpeed;
+        //ySpeed = Math.abs(ySpeed)*ySpeed;
+        
+        
+        //xSpeed = xLimiter.calculate(xSpeed*DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        //ySpeed = yLimiter.calculate(ySpeed*DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         turningSpeed = turningLimiter.calculate(turningSpeed)* DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+
 
         // 4. Construct desired chassis speeds
         ChassisSpeeds chassisSpeeds;

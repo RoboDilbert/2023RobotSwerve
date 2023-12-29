@@ -10,7 +10,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -102,6 +101,7 @@ public class SwerveSubsystem extends SubsystemBase {
         odometer.update(getRotation2d(), modulePosition);
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+
     }
 
     public void stopModules() {
@@ -115,23 +115,32 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
 
-        double x = frontLeft.getAbsoluteEncoderDeg();
-        String message1 = "frontLeft - " + x;
-        DriverStation.reportWarning(message1, false);
 
-        double y = frontRight.getAbsoluteEncoderDeg();
-        String message2 = "frontRight - " + y;
-        DriverStation.reportWarning(message2, false);
+        //Error Messages
+        //double x = frontLeft.getAbsoluteEncoderDeg();
+        //String message1 = "frontLeft - " + x;
+        //DriverStation.reportWarning(message1, false);
 
-        double z = backLeft.getAbsoluteEncoderDeg();
-        String message3 = "backLeft - " + z;
-        DriverStation.reportWarning(message3, false);
+        //double y = frontRight.getAbsoluteEncoderDeg();
+        //String message2 = "frontRight - " + y;
+        //DriverStation.reportWarning(message2, false);
 
-        double w = backRight.getAbsoluteEncoderDeg();
-        String message4 = "backRight - " + w;
-        DriverStation.reportWarning(message4, false);
+        //double z = backLeft.getAbsoluteEncoderDeg();
+        //String message3 = "backLeft - " + z;
+        //DriverStation.reportWarning(message3, false);
 
-        
+        //double w = backRight.getAbsoluteEncoderDeg();
+        //String message4 = "backRight - " + w;
+        //DriverStation.reportWarning(message4, false);
+
+
+
+        //Applying Brake Multiplier
+        desiredStates[0].speedMetersPerSecond *= (1.05-RobotContainer.ps4_controller.getRawAxis(3));
+        desiredStates[1].speedMetersPerSecond *= (1.05-RobotContainer.ps4_controller.getRawAxis(3));
+        desiredStates[2].speedMetersPerSecond *= (1.05-RobotContainer.ps4_controller.getRawAxis(3));
+        desiredStates[3].speedMetersPerSecond *= (1.05-RobotContainer.ps4_controller.getRawAxis(3));
+
         
         frontLeft.setDesiredState(desiredStates[0]);
         frontRight.setDesiredState(desiredStates[1]);
